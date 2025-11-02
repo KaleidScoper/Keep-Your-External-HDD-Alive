@@ -30,8 +30,8 @@ class HDDKeepAliveApp(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("硬盘保活工具")
-        self.setMinimumSize(600, 650)
-        self.resize(650, 700)
+        self.setMinimumSize(480, 600)
+        self.resize(480, 600)
         
         # 设置窗口图标
         self.set_icon()
@@ -63,14 +63,14 @@ class HDDKeepAliveApp(QMainWindow):
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
         main_layout = QVBoxLayout(central_widget)
-        main_layout.setSpacing(20)
-        main_layout.setContentsMargins(30, 30, 30, 30)
+        main_layout.setSpacing(12)
+        main_layout.setContentsMargins(20, 20, 20, 20)
         
         # 标题
         title_label = QLabel("硬盘保活工具")
         title_label.setObjectName("title")
         title_label.setAlignment(Qt.AlignCenter)
-        title_font = QFont("微软雅黑", 18, QFont.Bold)
+        title_font = QFont("Microsoft YaHei UI", 16, QFont.Bold)
         title_label.setFont(title_font)
         main_layout.addWidget(title_label)
         
@@ -78,6 +78,8 @@ class HDDKeepAliveApp(QMainWindow):
         file_group = QGroupBox("文件设置")
         file_group.setObjectName("groupBox")
         file_layout = QVBoxLayout()
+        file_layout.setSpacing(8)
+        file_layout.setContentsMargins(0, 0, 0, 0)
         
         file_label = QLabel("目标文件路径:")
         file_label.setObjectName("label")
@@ -103,17 +105,19 @@ class HDDKeepAliveApp(QMainWindow):
         params_group = QGroupBox("运行参数")
         params_group.setObjectName("groupBox")
         params_layout = QVBoxLayout()
+        params_layout.setSpacing(8)
+        params_layout.setContentsMargins(0, 0, 0, 0)
         
         # 读取间隔
         interval_layout = QHBoxLayout()
         interval_label = QLabel("读取间隔（秒）:")
         interval_label.setObjectName("label")
-        interval_label.setFixedWidth(150)
+        interval_label.setFixedWidth(130)
         interval_layout.addWidget(interval_label)
         
         self.interval_entry = QLineEdit("60")
         self.interval_entry.setObjectName("lineEdit")
-        self.interval_entry.setFixedWidth(150)
+        self.interval_entry.setFixedWidth(120)
         interval_layout.addWidget(self.interval_entry)
         interval_layout.addStretch()
         params_layout.addLayout(interval_layout)
@@ -122,12 +126,12 @@ class HDDKeepAliveApp(QMainWindow):
         duration_layout = QHBoxLayout()
         duration_label = QLabel("总运行时间（分钟）:")
         duration_label.setObjectName("label")
-        duration_label.setFixedWidth(150)
+        duration_label.setFixedWidth(130)
         duration_layout.addWidget(duration_label)
         
         self.duration_entry = QLineEdit("0")
         self.duration_entry.setObjectName("lineEdit")
-        self.duration_entry.setFixedWidth(150)
+        self.duration_entry.setFixedWidth(120)
         duration_layout.addWidget(self.duration_entry)
         
         duration_hint = QLabel("(0为无限)")
@@ -141,17 +145,17 @@ class HDDKeepAliveApp(QMainWindow):
         
         # 控制按钮
         button_layout = QHBoxLayout()
-        button_layout.setSpacing(15)
+        button_layout.setSpacing(12)
         
         self.start_button = QPushButton("开始运行")
         self.start_button.setObjectName("startButton")
-        self.start_button.setFixedSize(150, 45)
+        self.start_button.setFixedSize(200, 40)
         self.start_button.clicked.connect(self.start)
         button_layout.addWidget(self.start_button)
         
         self.stop_button = QPushButton("停止运行")
         self.stop_button.setObjectName("stopButton")
-        self.stop_button.setFixedSize(150, 45)
+        self.stop_button.setFixedSize(200, 40)
         self.stop_button.setEnabled(False)
         self.stop_button.clicked.connect(self.stop)
         button_layout.addWidget(self.stop_button)
@@ -162,13 +166,14 @@ class HDDKeepAliveApp(QMainWindow):
         status_group = QGroupBox("运行状态")
         status_group.setObjectName("statusGroup")
         status_layout = QVBoxLayout()
-        status_layout.setSpacing(15)
+        status_layout.setSpacing(10)
+        status_layout.setContentsMargins(0, 0, 0, 0)
         
         # 状态指示器
         status_indicator_layout = QHBoxLayout()
         self.status_dot = QLabel("●")
         self.status_dot.setObjectName("statusDot")
-        self.status_dot.setStyleSheet("color: #95a5a6; font-size: 20px;")
+        self.status_dot.setStyleSheet("color: #b2bec3; font-size: 16px;")
         status_indicator_layout.addWidget(self.status_dot)
         
         self.status_label = QLabel("未运行")
@@ -219,116 +224,149 @@ class HDDKeepAliveApp(QMainWindow):
         """获取默认样式表"""
         return """
             QMainWindow {
-                background-color: #f5f6fa;
+                background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                            stop:0 #f8f9fa, stop:1 #e9ecef);
+            }
+            
+            QWidget {
+                font-family: "Microsoft YaHei UI", "Segoe UI", "微软雅黑", sans-serif;
             }
             
             #title {
-                color: #2c3e50;
-                padding: 10px;
+                color: #1a1a2e;
+                padding: 8px;
+                font-weight: 600;
             }
             
             QGroupBox {
-                font-size: 13px;
-                font-weight: bold;
-                color: #34495e;
-                border: 2px solid #e0e0e0;
+                font-size: 12px;
+                font-weight: 600;
+                color: #2c3e50;
+                border: 1px solid #dfe4ea;
                 border-radius: 8px;
-                margin-top: 10px;
-                padding-top: 15px;
+                margin-top: 0px;
+                padding: 25px 15px 15px 15px;
                 background-color: white;
             }
             
             QGroupBox::title {
-                subcontrol-origin: margin;
-                left: 15px;
-                padding: 0 5px;
-            }
-            
-            #label {
-                color: #34495e;
-                font-size: 12px;
-                font-weight: bold;
-            }
-            
-            #hint {
-                color: #7f8c8d;
-                font-size: 11px;
-            }
-            
-            QLineEdit {
-                border: 2px solid #e0e0e0;
-                border-radius: 5px;
-                padding: 8px;
-                font-size: 12px;
-                background-color: white;
-            }
-            
-            QLineEdit:focus {
-                border: 2px solid #3498db;
-            }
-            
-            #browseButton {
-                background-color: #3498db;
-                color: white;
-                border: none;
-                border-radius: 5px;
-                padding: 8px 15px;
-                font-size: 12px;
-                font-weight: bold;
-            }
-            
-            #browseButton:hover {
-                background-color: #2980b9;
-            }
-            
-            #startButton {
-                background-color: #27ae60;
-                color: white;
-                border: none;
-                border-radius: 8px;
-                font-size: 14px;
-                font-weight: bold;
-            }
-            
-            #startButton:hover {
-                background-color: #229954;
-            }
-            
-            #startButton:disabled {
-                background-color: #bdc3c7;
-            }
-            
-            #stopButton {
-                background-color: #e74c3c;
-                color: white;
-                border: none;
-                border-radius: 8px;
-                font-size: 14px;
-                font-weight: bold;
-            }
-            
-            #stopButton:hover {
-                background-color: #c0392b;
-            }
-            
-            #stopButton:disabled {
-                background-color: #bdc3c7;
+                subcontrol-origin: padding;
+                subcontrol-position: top left;
+                left: 10px;
+                top: 8px;
+                padding: 0;
+                background-color: transparent;
             }
             
             #statusGroup {
-                background-color: #ecf0f1;
+                background-color: white;
+                border: 1px solid #74b9ff;
+                padding: 25px 15px 18px 15px;
             }
             
-            #statusText {
-                color: #34495e;
-                font-size: 14px;
-                font-weight: bold;
+            #label {
+                color: #2c3e50;
+                font-size: 12px;
+                font-weight: 600;
+                padding: 3px 0;
+            }
+            
+            #hint {
+                color: #636e72;
+                font-size: 10px;
+                font-style: italic;
             }
             
             #infoLabel {
-                color: #34495e;
+                color: #2d3436;
                 font-size: 12px;
-                padding: 3px 0px;
+                padding: 6px 8px;
+                line-height: 1.5;
+                min-height: 24px;
+            }
+            
+            QLineEdit {
+                border: 1px solid #dfe6e9;
+                border-radius: 5px;
+                padding: 8px 10px;
+                font-size: 12px;
+                background-color: white;
+                color: #2d3436;
+            }
+            
+            QLineEdit:hover {
+                border: 1px solid #b2bec3;
+            }
+            
+            QLineEdit:focus {
+                border: 1px solid #0984e3;
+            }
+            
+            QLineEdit:disabled {
+                background-color: #f1f3f5;
+                color: #868e96;
+                border: 1px solid #dfe6e9;
+            }
+            
+            QPushButton {
+                border: none;
+                border-radius: 5px;
+                padding: 8px 16px;
+                font-size: 12px;
+                font-weight: 600;
+            }
+            
+            #browseButton {
+                background-color: #0984e3;
+                color: white;
+                min-height: 32px;
+            }
+            
+            #browseButton:hover {
+                background-color: #0770c4;
+            }
+            
+            #browseButton:disabled {
+                background-color: #b2bec3;
+                color: #dfe6e9;
+            }
+            
+            #startButton {
+                background-color: #00b894;
+                color: white;
+                font-size: 13px;
+            }
+            
+            #startButton:hover {
+                background-color: #00a383;
+            }
+            
+            #startButton:disabled {
+                background-color: #b2bec3;
+                color: #dfe6e9;
+            }
+            
+            #stopButton {
+                background-color: #d63031;
+                color: white;
+                font-size: 13px;
+            }
+            
+            #stopButton:hover {
+                background-color: #c0282a;
+            }
+            
+            #stopButton:disabled {
+                background-color: #b2bec3;
+                color: #dfe6e9;
+            }
+            
+            #statusText {
+                color: #2c3e50;
+                font-size: 13px;
+                font-weight: 600;
+                min-height: 24px;
+                line-height: 1.5;
             }
         """
 
@@ -410,7 +448,7 @@ class HDDKeepAliveApp(QMainWindow):
         
         # 更新状态显示
         self.status_label.setText("运行中")
-        self.status_dot.setStyleSheet("color: #27ae60; font-size: 20px;")
+        self.status_dot.setStyleSheet("color: #00b894; font-size: 16px;")
         self.count_label.setText("读取次数: 0")
         self.runtime_label.setText("运行时间: 00:00:00")
         self.countdown_label.setText("下次读取: 准备中...")
@@ -497,7 +535,7 @@ class HDDKeepAliveApp(QMainWindow):
     def on_error(self, error_msg):
         """处理错误"""
         self.status_label.setText("错误")
-        self.status_dot.setStyleSheet("color: #e74c3c; font-size: 20px;")
+        self.status_dot.setStyleSheet("color: #d63031; font-size: 16px;")
         QMessageBox.critical(self, "读取错误", f"读取文件时出错:\n{error_msg}")
         self.on_finished()
 
@@ -512,7 +550,7 @@ class HDDKeepAliveApp(QMainWindow):
         self.choose_button.setEnabled(True)
         
         self.status_label.setText("已停止")
-        self.status_dot.setStyleSheet("color: #95a5a6; font-size: 20px;")
+        self.status_dot.setStyleSheet("color: #b2bec3; font-size: 16px;")
         self.countdown_label.setText("下次读取: --")
         
         # 更新托盘提示
