@@ -25,6 +25,40 @@ if errorlevel 1 (
 )
 
 echo [信息] Python环境检测通过
+
+REM 检查PyQt5是否安装
+python -c "import PyQt5" >nul 2>&1
+if errorlevel 1 (
+    echo [警告] 未检测到PyQt5库！
+    echo [信息] 正在尝试自动安装依赖...
+    echo.
+    
+    REM 尝试安装PyQt5
+    if exist requirements.txt (
+        pip install -r requirements.txt
+        if errorlevel 1 (
+            echo.
+            echo [错误] 自动安装失败！
+            echo.
+            echo 请手动运行以下命令安装依赖：
+            echo     pip install PyQt5
+            echo.
+            pause
+            exit /b 1
+        )
+        echo [信息] PyQt5安装成功！
+        echo.
+    ) else (
+        echo.
+        echo 请手动运行以下命令安装依赖：
+        echo     pip install PyQt5
+        echo.
+        pause
+        exit /b 1
+    )
+)
+
+echo [信息] 依赖检测通过
 echo [信息] 正在启动硬盘保活工具...
 echo.
 

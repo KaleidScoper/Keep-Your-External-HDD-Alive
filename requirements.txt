@@ -1,0 +1,9 @@
+# PyQt5 - 现代化GUI框架
+PyQt5>=5.15.0
+
+# PyQt5开发工具（可选，包含Qt Designer等工具）
+# PyQt5-tools>=5.15.0
+
+# 如果需要打包成exe，可以使用以下工具：
+# pyinstaller>=5.0.0
+
